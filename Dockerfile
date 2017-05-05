@@ -4,8 +4,10 @@ MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
 #ARG SDC_USER=sdc
 
-ARG ADD_LIBS
+#ARG ADD_LIBS
 
+ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib
+	 
 USER root
 
 ENV SDC_USER=sdc
@@ -20,7 +22,8 @@ RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_st
 
 
 # install the necessary stagelibraries if the ADD_LIBS variable is used
-RUN if [ "$ADD_LIBS" != "" ]; then ${SDC_DIST}/bin/streamsets stagelibs -install=${ADD_LIBS}; fi
+
+RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
 
 
 #ENV SDC_DATA=/usr/share/streamsets/data
