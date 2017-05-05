@@ -28,7 +28,7 @@ RUN if [ "$ADD_LIBS" != "" ]; then ${SDC_DIST}/bin/streamsets stagelibs -install
 #ENV SDC_DIST="/opt/streamsets-datacollector-${SDC_VERSION}"
 #ENV STREAMSETS_LIBRARIES_EXTRA_DIR="${SDC_DIST}/libs-common-lib"
 
-#RUN mkdir /opt/streamsets-datacollector-${SDC_VERSION}
+RUN mkdir ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib
 
 # Set permissions on shared libs folder
 
