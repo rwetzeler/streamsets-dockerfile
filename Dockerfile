@@ -26,12 +26,14 @@ RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_st
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
 
 
-#ENV SDC_DATA=/usr/share/streamsets/data
+ENV SDC_DATA=/usr/share/streamsets/data
 #ENV SDC_VERSION ${SDC_VERSION:-2.4.1.0}
 #ENV SDC_DIST="/opt/streamsets-datacollector-${SDC_VERSION}"
 #ENV STREAMSETS_LIBRARIES_EXTRA_DIR="${SDC_DIST}/libs-common-lib"
 
 RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib
+
+RUN mkdir -p ${SDC_DATA}
 
 # Set permissions on shared libs folder
 
