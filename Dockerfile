@@ -35,6 +35,11 @@ RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib
 
 RUN mkdir -p ${SDC_DATA}
 
+# add user and group
+
+RUN addgroup -S ${SDC_USER} && \
+    adduser -S ${SDC_USER} ${SDC_USER}
+	
 # Set permissions on shared libs folder
 
 RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
