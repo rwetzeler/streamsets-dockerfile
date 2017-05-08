@@ -34,11 +34,6 @@ ENV SDC_DATA=/usr/share/streamsets/data
 RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib
 
 RUN mkdir -p ${SDC_DATA}
-
-# add user and group
-
-RUN addgroup -S ${SDC_USER} && \
-    adduser -S ${SDC_USER} ${SDC_USER}
 	
 # Set permissions on shared libs folder
 
