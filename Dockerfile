@@ -1,15 +1,13 @@
-FROM streamsets/datacollector:2.4.0.0
+FROM streamsets/datacollector:2.4.1.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
 ARG SDC_USER=sdc
 
-#ARG ADD_LIBS
 
 ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib
 	 
 USER root
-
 
 RUN apk --no-cache add bash \
     curl \
@@ -17,11 +15,11 @@ RUN apk --no-cache add bash \
     libstdc++ \
     sed
 
-# we have to fix the stagelibs command to run on Alpine Linux (the orginal StreamSets docker image is based on)
+# Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
 
 
-# install the necessary stagelibraries if the ADD_LIBS variable is used
+# Install the necessary stagelibraries 
 
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
 
