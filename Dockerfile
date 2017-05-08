@@ -37,8 +37,12 @@ RUN mkdir -p ${SDC_DATA}
 
 # Set permissions on shared libs folder
 
-RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}"
-
+RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
+"${SDC_CONF}" \
+    "${SDC_DATA}" \
+    "${SDC_LOG}" \
+    "${SDC_RESOURCES}" \
+    "${STREAMSETS_LIBRARIES_EXTRA_DIR}"
 
 # Download and extract jdbc driver
 RUN cd /tmp && \
