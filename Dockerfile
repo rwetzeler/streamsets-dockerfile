@@ -2,7 +2,7 @@ FROM streamsets/datacollector:2.4.0.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
-#ARG SDC_USER=sdc
+ARG SDC_USER=sdc
 
 #ARG ADD_LIBS
 
@@ -10,7 +10,7 @@ ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-k
 	 
 USER root
 
-ENV SDC_USER=sdc
+
 RUN apk --no-cache add bash \
     curl \
     krb5-libs \
@@ -41,9 +41,8 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 "${SDC_CONF}" \
     "${SDC_DATA}" \
     "${SDC_LOG}" \
-    "${SDC_RESOURCES}" \
-    "${STREAMSETS_LIBRARIES_EXTRA_DIR}"
-
+    "${SDC_RESOURCES}" 
+	
 # Download and extract jdbc driver
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
