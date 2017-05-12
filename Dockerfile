@@ -18,7 +18,6 @@ RUN apk --no-cache add bash \
 # Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
 
-
 # Install the necessary stagelibraries 
 
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
@@ -33,6 +32,11 @@ RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib
 
 RUN mkdir -p ${SDC_DATA}
 	
+# Setup Mail alerts 
+RUN  sed -i -e 's/localhost/apps-outbound.fcstone.com/' /etc/sdc/sdc.properties
+RUN  sed -i -e 's/sdc@$localhost/streamsets_alert/' /etc/sdc/sdc.properties
+
+
 # Set permissions on shared libs folder
 
 RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
