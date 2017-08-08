@@ -13,7 +13,10 @@ RUN apk --no-cache add bash \
     curl \
     krb5-libs \
     libstdc++ \
-    sed
+    sed \
+	cifs-utils
+
+
 
 # Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
@@ -24,6 +27,7 @@ RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$A
 
 
 ENV SDC_DATA=/usr/share/streamsets/data
+ENV REMOTE_SHARE=/mnt/remoteshare
 #ENV SDC_VERSION ${SDC_VERSION:-2.4.1.0}
 #ENV SDC_DIST="/opt/streamsets-datacollector-${SDC_VERSION}"
 #ENV STREAMSETS_LIBRARIES_EXTRA_DIR="${SDC_DIST}/libs-common-lib"
@@ -31,7 +35,9 @@ ENV SDC_DATA=/usr/share/streamsets/data
 RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib
 
 RUN mkdir -p ${SDC_DATA}
-	
+
+RUN mkdir -p ${REMOTE_SHARE}
+
 # Setup Mail alerts 
 RUN  sed -i -e 's/sdc@$localhost/streamsets_alert/' /etc/sdc/sdc.properties
 RUN  sed -i -e 's/localhost/apps-outbound.fcstone.com/1' /etc/sdc/sdc.properties
@@ -43,6 +49,7 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 "${SDC_CONF}" \
     "${SDC_DATA}" \
     "${SDC_LOG}" \
+	"{REMOTE_SHARE}" \
     "${SDC_RESOURCES}" 
 	
 # Download and extract jdbc driver
