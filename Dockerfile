@@ -5,7 +5,7 @@ MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 ARG SDC_USER=sdc
 
 
-ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib
+ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib,streamsets-datacollector-apache-kafka_0_10-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib
 	 
 USER root
 
