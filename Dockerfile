@@ -25,7 +25,7 @@ RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_st
 
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
 
-RUN curl http://rancher-metadata/latest/self/host/name > /etc/hostname
+
 
 ENV SDC_DATA=/usr/share/streamsets/data
 ENV REMOTE_SHARE=/mnt/remoteshare
@@ -51,12 +51,14 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_DATA}" \
     "${SDC_LOG}" \
 	"${REMOTE_SHARE}" \
-    "${SDC_RESOURCES}" 
+    "${SDC_RESOURCES}" \
+	/etc/hostname
 	
 # Download and extract jdbc driver
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
+
 
 USER ${SDC_USER}
 EXPOSE 18630
