@@ -25,7 +25,7 @@ RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_st
 
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
 
-curl "http://rancher-metadata/latest/self/host/name > /etc/hostname"
+RUN curl "http://rancher-metadata/latest/self/host/name > /etc/hostname"
 
 ENV SDC_DATA=/usr/share/streamsets/data
 ENV REMOTE_SHARE=/mnt/remoteshare
