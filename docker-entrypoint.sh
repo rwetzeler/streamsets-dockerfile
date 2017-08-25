@@ -36,24 +36,31 @@ set_conf() {
 #echo $START_ARGS
 echo "getting hostname"
 export INSTANCE_HOSTNAME=$(curl -s http://rancher-metadata/latest/self/host/name)
+export HTTP_PORT=$(curl http://rancher-metadata/latest/self/service/ports/0 | cut -d":" -f1)
 
 
-
-if [ -z $HOST_NAME ]
+if [ -z $INSTANCE_HOSTNAME ]
 then
   echo "Failed to get host's hostname from rancher-metadata API." >> /dev/stderr
   export INSTANCE_HOSTNAME=$(cat /etc/hostname)
 fi
+
+if [ -z $HTTP_PORT ]
+then
+  echo "Failed to get host's hostname from rancher-metadata API." >> /dev/stderr
+  export HTTP_PORT=18630
+fi
+    
 echo "HOSTNAME SET ${INSTANCE_HOSTNAME}"
+echo "HTTP PORT SET ${HTTP_PORT}"
 
 #echo ${INSTANCE_HOSTNAME} > /etc/hostname
-
 #curl http://rancher-metadata/latest/self/host/name > ~/hosts.new
 #echo $START_ARGS
 echo "wrote hosts new"
 #cat ~/hosts.new > /etc/hostname
 echo "Catted host"
-
+sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTTP_PORT}" /etc/sdc/sdc.properties
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
 echo "sedding conf"
