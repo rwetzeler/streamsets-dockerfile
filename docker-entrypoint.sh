@@ -16,7 +16,8 @@
 #
 
 set -e
-
+echo "$@"
+echo "Entering entrypoint"
 # We translate environment variables to sdc.properties and rewrite them.
 set_conf() {
   if [ $# -ne 2 ]; then
@@ -31,26 +32,39 @@ set_conf() {
 
   sed -i 's|^#\?\('"$1"'=\).*|\1'"$2"'|' "${SDC_CONF}/sdc.properties"
 }
+echo "getting hostname"
+export INSTANCE_HOSTNAME=$(curl -s http://rancher-metadata/latest/self/host/name)
+export HTTP_PORT=$(curl http://rancher-metadata/latest/self/service/ports/0 | cut -d":" -f1)
 
-INSTANCE_HOSTNAME=$(curl -s http://rancher-metadata/latest/self/host/name)
 
-if [[ -z $HOST_NAME ]]
+if [ -z $INSTANCE_HOSTNAME ]
 then
-  echo "Failed to get host's hostname from rancher-metadata API." > debug
+  echo "Failed to get host's hostname from rancher-metadata API." >> /dev/stderr
+  export INSTANCE_HOSTNAME=$(cat /etc/hostname)
 fi
 
+if [ -z $HTTP_PORT ]
+then
+  echo "Failed to get host's hostname from rancher-metadata API." >> /dev/stderr
+  export HTTP_PORT=18630
+fi
+    
+echo "HOSTNAME SET ${INSTANCE_HOSTNAME}"
+echo "HTTP PORT SET ${HTTP_PORT}"
 
-echo ${urlname}>/etc/hostname
-
-curl http://rancher-metadata/latest/self/host/name > ~/hosts.new
-cat ~/hosts.new > /etc/hostname
-
+#echo ${INSTANCE_HOSTNAME} > /etc/hostname
+#curl http://rancher-metadata/latest/self/host/name > ~/hosts.new
+#echo $START_ARGS
+sed -i '/<hostname>:<port>/s/^#//g' /etc/sdc/sdc.properties
+sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTTP_PORT}" /etc/sdc/sdc.properties
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
+echo "sedding conf"
+#echo $START_ARGS
 if [ ! -z "$HOST" ] && [ ! -z "$PORT0" ] && [ -z "$SDC_CONF_SDC_BASE_HTTP_URL" ]; then
   export SDC_CONF_SDC_BASE_HTTP_URL="http://${INSTANCE_HOSTNAME}:${PORT0}"
 fi
-
+#echo ${START_ARGS}
 for e in $(env); do
   key=${e%=*}
   value=${e#*=}
@@ -60,6 +74,9 @@ for e in $(env); do
     set_conf $key $value
   fi
 done
-
+#echo $START_ARGS
+# env
+echo "DOING THANGS"
+#echo $START_ARGS
 exec "${SDC_DIST}/bin/streamsets" "$@"
-
+#exec "${SDC_DIST}/bin/streamsets" "dc"

@@ -52,8 +52,6 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_RESOURCES}" \
 	"/etc/hostname"
 	
-# RUN chmod 777 "/etc/hostname"
-	
 # Download and extract jdbc driver
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
@@ -66,6 +64,7 @@ EXPOSE 18630
 USER ${SDC_USER}
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["dc", "-exec"]
+
 
 
 
