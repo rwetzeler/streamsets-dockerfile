@@ -64,7 +64,7 @@ RUN cd /tmp && \
 
 USER ${SDC_USER}
 EXPOSE 18630
-#COPY docker-entrypoint.sh /
+COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["dc", "-exec"]
 
