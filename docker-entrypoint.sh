@@ -17,7 +17,6 @@
 
 set -e
 echo "$@"
-#START_ARGS="$@"
 echo "Entering entrypoint"
 # We translate environment variables to sdc.properties and rewrite them.
 set_conf() {
