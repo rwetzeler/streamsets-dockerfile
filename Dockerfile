@@ -33,15 +33,13 @@ ENV REMOTE_SHARE=/mnt/remoteshare
 #ENV SDC_DIST="/opt/streamsets-datacollector-${SDC_VERSION}"
 #ENV STREAMSETS_LIBRARIES_EXTRA_DIR="${SDC_DIST}/libs-common-lib"
 
-RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib
-
-RUN mkdir -p ${SDC_DATA}
-
-RUN mkdir -p ${REMOTE_SHARE}
+RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib \
+	&& mkdir -p ${SDC_DATA} \
+	&& mkdir -p ${REMOTE_SHARE}
 
 # Setup Mail alerts 
-RUN  sed -i -e 's/sdc@$localhost/streamsets_alert/' /etc/sdc/sdc.properties
-RUN  sed -i -e 's/localhost/apps-outbound.fcstone.com/1' /etc/sdc/sdc.properties
+RUN  sed -i -e 's/sdc@$localhost/streamsets_alert/' /etc/sdc/sdc.properties \
+	&& sed -i -e 's/localhost/apps-outbound.fcstone.com/1' /etc/sdc/sdc.properties
 
 
 # Set permissions on shared libs folder
@@ -54,7 +52,7 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_RESOURCES}" \
 	"/etc/hostname"
 	
-RUN chmod 777 "/etc/hostname"
+# RUN chmod 777 "/etc/hostname"
 	
 # Download and extract jdbc driver
 RUN cd /tmp && \
