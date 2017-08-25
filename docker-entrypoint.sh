@@ -55,6 +55,7 @@ echo "HTTP PORT SET ${HTTP_PORT}"
 #echo ${INSTANCE_HOSTNAME} > /etc/hostname
 #curl http://rancher-metadata/latest/self/host/name > ~/hosts.new
 #echo $START_ARGS
+sed -i '/<hostname>:<port>/s/^#//g' /etc/sdc/sdc.properties
 sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTTP_PORT}" /etc/sdc/sdc.properties
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
