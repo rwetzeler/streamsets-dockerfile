@@ -17,7 +17,6 @@ RUN apk --no-cache add bash \
 	cifs-utils
 
 
-
 # Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
 
