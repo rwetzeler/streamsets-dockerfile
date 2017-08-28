@@ -16,6 +16,10 @@ RUN apk --no-cache add bash \
     sed \
 	cifs-utils
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 # Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
 
@@ -61,6 +65,7 @@ EXPOSE 18630
 USER ${SDC_USER}
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["dc", "-exec"]
+
 
 
 
