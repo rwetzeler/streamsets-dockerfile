@@ -16,15 +16,12 @@ RUN apk --no-cache add bash \
     sed \
 	cifs-utils
 
-
-
 # Fix the stagelibs command to run on Alpine Linux 
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
 
 # Install the necessary stagelibraries 
 
 RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; fi
-
 
 
 ENV SDC_DATA=/usr/share/streamsets/data
@@ -52,15 +49,13 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_RESOURCES}" \
 	"/etc/hostname"
 	
-# RUN chmod 777 "/etc/hostname"
-	
 # Download and extract jdbc driver
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
-COPY docker-entrypoint.sh /
-RUN chmod o+x /docker-entrypoint.sh
+#COPY docker-entrypoint.sh /
+#RUN chmod o+x /docker-entrypoint.sh
 EXPOSE 18630
 
 USER ${SDC_USER}
