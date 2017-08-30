@@ -1,4 +1,4 @@
-FROM streamsets/datacollector:2.7.0.0
+FROM streamsets/datacollector:2.7.1.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
@@ -57,8 +57,8 @@ RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
-#COPY docker-entrypoint.sh /
-#RUN chmod o+x /docker-entrypoint.sh
+COPY docker-entrypoint.sh /
+RUN chmod o+x /docker-entrypoint.sh
 EXPOSE 18630
 
 USER ${SDC_USER}
