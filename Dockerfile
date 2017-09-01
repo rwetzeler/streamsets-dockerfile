@@ -50,7 +50,6 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_RESOURCES}" \
 	"/etc/hostname"
 	
-# RUN chmod 777 "/etc/hostname"
 	
 # Download and extract jdbc driver
 RUN cd /tmp && \
