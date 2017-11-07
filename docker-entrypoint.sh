@@ -55,15 +55,29 @@ echo "HTTP PORT SET ${HTTP_PORT}"
 #echo ${INSTANCE_HOSTNAME} > /etc/hostname
 #curl http://rancher-metadata/latest/self/host/name > ~/hosts.new
 #echo $START_ARGS
+
 sed -i '/<hostname>:<port>/s/^#//g' /etc/sdc/sdc.properties
 sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTTP_PORT}" /etc/sdc/sdc.properties
+
+# Install libraries during an upgrade
+
+LIBS=$( ${SDC_DIST}/bin/streamsets stagelibs -list | grep "YES"  | cut -d' ' -f2)
+echo $LIBS
+for i in ${LIBS}
+do
+  ${SDC_DIST}/bin/streamsets stagelibs -install=${i}
+done
+
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
+
 echo "sedding conf"
 #echo $START_ARGS
 if [ ! -z "$HOST" ] && [ ! -z "$PORT0" ] && [ -z "$SDC_CONF_SDC_BASE_HTTP_URL" ]; then
   export SDC_CONF_SDC_BASE_HTTP_URL="http://${INSTANCE_HOSTNAME}:${PORT0}"
 fi
+
+
 #echo ${START_ARGS}
 for e in $(env); do
   key=${e%=*}
@@ -76,7 +90,10 @@ for e in $(env); do
 done
 #echo $START_ARGS
 # env
+
 echo "DOING THANGS"
+
 #echo $START_ARGS
+
 exec "${SDC_DIST}/bin/streamsets" "$@"
 #exec "${SDC_DIST}/bin/streamsets" "dc"
