@@ -53,12 +53,13 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 # RUN chmod 777 "/etc/hostname"
 	
 # Download and extract jdbc driver
+
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
-#COPY docker-entrypoint.sh /
-#RUN chmod o+x /docker-entrypoint.sh
+COPY docker-entrypoint.sh /
+RUN chmod o+x /docker-entrypoint.sh
 EXPOSE 18630
 
 USER ${SDC_USER}
