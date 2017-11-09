@@ -99,7 +99,7 @@ then
         sed -i "/debug=/c\debug="true"" /etc/sdc/ldap-login.conf
         sed -i "/hostname=/c\hostname=${LDAP_HOSTNAME}" /etc/sdc/ldap-login.conf
         sed -i "/bindDn=/c\bindDn=${LDAP_BINDN}" /etc/sdc/ldap-login.conf
-        sed -i "/forceBindingLogin=/c\forceBindingLogin="true"' /etc/sdc/ldap-login.conf
+        sed -i "/forceBindingLogin=/c\forceBindingLogin="true"" /etc/sdc/ldap-login.conf
         sed -i "/userBaseDn=/c\userBaseDn=${LDAP_USERBASEDN}" /etc/sdc/ldap-login.conf
         sed -i "/userIdAttribute=/c\userIdAttribute=${LDAP_USERIDATTRIBUTE}" /etc/sdc/ldap-login.conf
         sed -i "/userObjectClass=/c\userObjectClass=${LDAP_USEROBJECT_CLASS}" /etc/sdc/ldap-login.conf
