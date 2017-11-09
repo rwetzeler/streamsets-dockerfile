@@ -90,6 +90,8 @@ for e in $(env); do
   fi
 done
 
+echo $USE_LDAP
+
 if [ [$USE_LDAP == "true"] ];
 then
         sed -i -e 's/http.authentication.login.module=file/http.authentication.login.module=ldap/' /etc/sdc/sdc.properties
