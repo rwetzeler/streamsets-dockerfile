@@ -92,7 +92,7 @@ done
 
 echo $USE_LDAP
 
-if [ [$USE_LDAP == "true"] ];
+if [ "$USE_LDAP" = "true" ];
 then
         sed -i -e 's/http.authentication.login.module=file/http.authentication.login.module=ldap/' /etc/sdc/sdc.properties
         sed -i -e 's/http.authentication.ldap.role.mapping=/http.authentication.ldap.role.mapping="${SDC_CONF_HTTP_AUTHENTICATION_LDAP_ROLE_MAPPING}"/' /etc/sdc/sdc.properties
