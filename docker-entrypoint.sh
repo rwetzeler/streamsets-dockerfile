@@ -97,7 +97,7 @@ if [ "$USE_LDAP" = "true" ];
 then
 		echo "Configuring LDAP parameters"
         sed -i -e "s/http.authentication.login.module=file/http.authentication.login.module=ldap/" /etc/sdc/sdc.properties
-        sed -i -e "s/http.authentication.ldap.role.mapping=/http.authentication.ldap.role.mapping=${SDC_CONF_HTTP_AUTHENTICATION_LDAP_ROLE_MAPPING}/" /etc/sdc/sdc.properties
+        sed -i  "/http.authentication.ldap.role.mapping=/c\http.authentication.ldap.role.mapping=${SDC_CONF_HTTP_AUTHENTICATION_LDAP_ROLE_MAPPING}" /etc/sdc/sdc.properties
         sed -i "/debug=/c\debug="'"true"'"" /etc/sdc/ldap-login.conf
         sed -i '/hostname=/c\hostname="'"${LDAP_HOSTNAME}"'"' /etc/sdc/ldap-login.conf
         sed -i '/bindDn=/c\bindDn="'"${LDAP_BINDN}"'"' /etc/sdc/ldap-login.conf
