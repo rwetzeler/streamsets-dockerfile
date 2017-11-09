@@ -90,10 +90,12 @@ for e in $(env); do
   fi
 done
 
-echo $USE_LDAP
+
+#echo $USE_LDAP
 
 if [ "$USE_LDAP" = "true" ];
 then
+		echo "Configuring LDAP parameters"
         sed -i -e "s/http.authentication.login.module=file/http.authentication.login.module=ldap/" /etc/sdc/sdc.properties
         sed -i -e "s/http.authentication.ldap.role.mapping=/http.authentication.ldap.role.mapping=${SDC_CONF_HTTP_AUTHENTICATION_LDAP_ROLE_MAPPING}/" /etc/sdc/sdc.properties
         sed -i "/debug=/c\debug="'"true"'"" /etc/sdc/ldap-login.conf
@@ -102,7 +104,7 @@ then
         sed -i "/forceBindingLogin=/c\forceBindingLogin="'"true"'"" /etc/sdc/ldap-login.conf
         sed -i '/userBaseDn=/c\userBaseDn="'"${LDAP_USERBASEDN}"'"' /etc/sdc/ldap-login.conf
         sed -i '/userIdAttribute=/c\userIdAttribute="'"${LDAP_USERIDATTRIBUTE}"'"' /etc/sdc/ldap-login.conf
-        sed -i '/userObjectClass=/c\userObjectClass="'"${LDAP_USEROBJECT_CLASS}"'"' /etc/sdc/ldap-login.conf
+        sed -i '/userObjectClass=/c\userObjectClass="'"${LDAP_USEROBJECTCLASS}"'"' /etc/sdc/ldap-login.conf
         sed -i '/userFilter=/c\userFilter="'"${LDAP_USERFILTER}"'"' /etc/sdc/ldap-login.conf
         sed -i '/roleBaseDn=/c\roleBaseDn="'"${LDAP_ROLEBASEDN}"'"' /etc/sdc/ldap-login.conf
         sed -i '/roleObjectClass=/c\roleObjectClass="'"${LDAP_ROLEOBJECTCLASS}"'"' /etc/sdc/ldap-login.conf
