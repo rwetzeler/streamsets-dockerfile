@@ -1,4 +1,4 @@
-FROM streamsets/datacollector:2.7.2.0
+FROM streamsets/datacollector:3.0.0.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
