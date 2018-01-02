@@ -36,7 +36,7 @@ RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib
 	&& mkdir -p ${REMOTE_SHARE}
 
 # Setup Mail alerts 
-RUN  sed -i -e 's/sdc@$localhost/streamsets_alert/' /etc/sdc/sdc.properties \
+RUN  sed -i  "/xmail.from.address=/c\xmail.from.address=streamsets_alert" /etc/sdc/sdc.properties \
 	&& sed -i -e 's/localhost/apps-outbound.fcstone.com/1' /etc/sdc/sdc.properties
 
 
