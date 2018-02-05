@@ -1,11 +1,12 @@
-FROM streamsets/datacollector:3.0.1.0
+FROM streamsets/datacollector:3.0.3.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 #ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
 ARG SDC_USER=sdc
 
 
-ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib,streamsets-datacollector-apache-kafka_0_10-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib
+# Set stagelibs
+ENV ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib,streamsets-datacollector-apache-kafka_0_10-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib,streamsets-datacollector-cdh_5_13-lib
 	 
 USER root
 
@@ -50,7 +51,6 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_RESOURCES}" \
 	"/etc/hostname"
 	
-# RUN chmod 777 "/etc/hostname"
 	
 # Download and extract jdbc driver
 
