@@ -61,13 +61,13 @@ sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTT
 
 # Install libraries during an upgrade
 
-LIBS=$( ${SDC_DIST}/bin/streamsets stagelibs -list | grep "YES"  | cut -d' ' -f2)
+#LIBS=$( ${SDC_DIST}/bin/streamsets stagelibs -list | grep "YES"  | cut -d' ' -f2)
 
-echo $LIBS
-for i in ${LIBS}
-do
-  ${SDC_DIST}/bin/streamsets stagelibs -install=${i}
-done
+#echo $LIBS
+#for i in ${LIBS}
+#do
+#  ${SDC_DIST}/bin/streamsets stagelibs -install=${i}
+#done
 
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
