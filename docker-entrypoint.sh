@@ -109,7 +109,7 @@ then
         sed -i '/roleBaseDn=/c\roleBaseDn="'"${LDAP_ROLEBASEDN}"'"' /etc/sdc/ldap-login.conf
         sed -i '/roleObjectClass=/c\roleObjectClass="'"${LDAP_ROLEOBJECTCLASS}"'"' /etc/sdc/ldap-login.conf
         sed -i "/password/c\\${LDAP_BINDPASSWORD}" /etc/sdc/ldap-bind-password.txt
-		sed -i '/SDC_JAVA_OPTS="-Xmx/c\export SDC_JAVA_OPTS="-Xmx2048m -Xms2048m"' ${SDC_DIST}/libexec/sdc-env.sh
+		sed -i '/SDC_JAVA_OPTS="-Xmx/c\export SDC_JAVA_OPTS="'"${SDC_JAVA_OPTS}"'"' ${SDC_DIST}/libexec/sdc-env.sh
 else
         echo "Using file default credentials of streamsets"
 fi
