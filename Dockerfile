@@ -6,7 +6,7 @@ ARG SDC_USER=sdc
 
 
 # Set stagelibs
-ARG ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_9-lib,streamsets-datacollector-apache-kafka_0_10-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib,streamsets-datacollector-cdh_5_13-lib
+ARG ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_11-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib,streamsets-datacollector-cdh_5_13-lib
 ENV ADD_LIBS=$ADD_LIBS
 	 
 USER root
