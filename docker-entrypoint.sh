@@ -69,6 +69,11 @@ sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTT
 #  ${SDC_DIST}/bin/streamsets stagelibs -install=${i}
 #done
 
+if [[ ! -z $ADD_LIBS ]];
+then 
+  $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; 
+fi
+
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
 
