@@ -63,12 +63,6 @@ sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTT
 
 #LIBS=$( ${SDC_DIST}/bin/streamsets stagelibs -list | grep "YES"  | cut -d' ' -f2)
 
-#echo $LIBS
-#for i in ${LIBS}
-#do
-#  ${SDC_DIST}/bin/streamsets stagelibs -install=${i}
-#done
-
 if [[ ! -z $ADD_LIBS ]];
 then 
   $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; 

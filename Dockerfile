@@ -50,7 +50,8 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
     "${SDC_LOG}" \
 	"${REMOTE_SHARE}" \
     "${SDC_RESOURCES}" \
-	"/etc/hostname"
+	"/etc/hostname" \
+	"${SDC_DIST}"
 	
 	
 # Download and extract jdbc driver
