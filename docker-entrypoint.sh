@@ -17,7 +17,7 @@
 
 set -e
 echo "$@"
-echo "Entering entrypoint"
+echo "Entering entry point"
 # We translate environment variables to sdc.properties and rewrite them.
 set_conf() {
   if [ $# -ne 2 ]; then
@@ -61,8 +61,6 @@ sed -i "/<hostname>:<port>/c sdc.base.http.url=http://${INSTANCE_HOSTNAME}:${HTT
 
 # Install libraries during an upgrade
 
-#LIBS=$( ${SDC_DIST}/bin/streamsets stagelibs -list | grep "YES"  | cut -d' ' -f2)
-
 if [[ ! -z $ADD_LIBS ]];
 then 
   $SDC_DIST/bin/streamsets stagelibs -install=$ADD_LIBS ; 
@@ -71,7 +69,7 @@ fi
 # In some environments such as Marathon $HOST and $PORT0 can be used to
 # determine the correct external URL to reach SDC.
 
-echo "sedding conf"
+echo "setting config"
 #echo $START_ARGS
 if [ ! -z "$HOST" ] && [ ! -z "$PORT0" ] && [ -z "$SDC_CONF_SDC_BASE_HTTP_URL" ]; then
   export SDC_CONF_SDC_BASE_HTTP_URL="http://${INSTANCE_HOSTNAME}:${PORT0}"
