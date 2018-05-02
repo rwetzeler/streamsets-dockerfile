@@ -110,10 +110,12 @@ then
 else
         echo "Using file default credentials of streamsets"
 fi
-
-if [ "$USE_JMS" = "true"];
+USE_JMS=true
+if [ "$USE_JMS" = "true" ];
 then
 	echo "Configuring Websphere MQ bindings"
 	source /cifs_setup.sh
-exec "${SDC_DIST}/bin/streamsets" "$@"
-#exec "${SDC_DIST}/bin/streamsets" "dc"
+fi
+#exec "${SDC_DIST}/bin/streamsets" "$@"
+su sdc
+exec "${SDC_DIST}/bin/streamsets" "dc"

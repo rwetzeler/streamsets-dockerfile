@@ -64,7 +64,7 @@ COPY docker-entrypoint.sh cifs_setup.sh /
 RUN chmod o+x /docker-entrypoint.sh /cifs_setup.sh
 EXPOSE 18630
 
-USER ${SDC_USER}
+#USER ${SDC_USER}
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["dc", "-exec"]
 
