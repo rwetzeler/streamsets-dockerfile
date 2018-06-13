@@ -1,9 +1,7 @@
 FROM streamsets/datacollector:3.2.0.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
-#ARG SDC_URL=https://archives.streamsets.com/datacollector/2.4.1.0/tarball/streamsets-datacollector-core-2.4.1.0.tgz
 ARG SDC_USER=sdc
-
 
 # Set stagelibs
 ARG ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_11-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib
