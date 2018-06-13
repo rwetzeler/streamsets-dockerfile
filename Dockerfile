@@ -60,8 +60,8 @@ RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
-COPY docker-entrypoint.sh cifs_setup.sh /
-RUN chmod o+x /docker-entrypoint.sh /cifs_setup.sh
+COPY docker-entrypoint.sh  /
+RUN chmod o+x /docker-entrypoint.sh 
 EXPOSE 18630
 
 #USER ${SDC_USER}

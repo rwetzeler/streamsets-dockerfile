@@ -92,7 +92,7 @@ done
 
 if [ "$USE_LDAP" = "true" ];
 then
-		echo "Configuring LDAP parameters"
+        echo "Configuring LDAP parameters"
         sed -i -e "s/http.authentication.login.module=file/http.authentication.login.module=ldap/" /etc/sdc/sdc.properties
         sed -i  "/http.authentication.ldap.role.mapping=/c\http.authentication.ldap.role.mapping=${SDC_CONF_HTTP_AUTHENTICATION_LDAP_ROLE_MAPPING}" /etc/sdc/sdc.properties
         sed -i "/debug=/c\debug="'"true"'"" /etc/sdc/ldap-login.conf
@@ -110,12 +110,7 @@ then
 else
         echo "Using file default credentials of streamsets"
 fi
-USE_JMS=true
-if [ "$USE_JMS" = "true" ];
-then
-	echo "Configuring Websphere MQ bindings"
-	source /cifs_setup.sh
-fi
+
 #exec "${SDC_DIST}/bin/streamsets" "$@"
-su sdc
+
 exec "${SDC_DIST}/bin/streamsets" "dc"
