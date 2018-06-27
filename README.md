@@ -13,14 +13,14 @@ Detailed Usage
 *   You can specify a custom configs by mounting them as a volume to /etc/sdc or /etc/sdc/<specific config>
 *   Configuration properties in `sdc.properties` can also be overridden at runtime by specifying them env vars prefixed
     with SDC_CONF
-*   You can set ADD_LIBS variable to installl necessary stagelibaries. 
+*   You can set ADD_LIBS variable to install necessary stagelibaries. 
 	The ones used here be default: 
 	streamsets-datacollector-jdbc-lib
-	streamsets-datacollector-apache-kafka_0_9-lib
-	streamsets-datacollector-apache-kafka_0_10-lib
+	streamsets-datacollector-apache-kafka_1_0-lib
 	streamsets-datacollector-azure-lib
 	streamsets-datacollector-elasticsearch_5-lib
 	streamsets-datacollector-jython_2_7-lib
+	streamsets-datacollector-redis-lib
 *   Email alerts can be set by adding the configuration to EMAIL_HOST
 *   External JAR file for Microsoft SQL server installed along with this image. 
 *   Set SDC_DATA to create separate data containers. 
