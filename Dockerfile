@@ -4,7 +4,7 @@ MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 ARG SDC_USER=sdc
 
 # Set stagelibs
-ARG ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_0_11-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib
+ARG ADD_LIBS=streamsets-datacollector-jdbc-lib,streamsets-datacollector-apache-kafka_1_0-lib,streamsets-datacollector-azure-lib,streamsets-datacollector-elasticsearch_5-lib,streamsets-datacollector-jython_2_7-lib,streamsets-datacollector-redis-lib
 ENV ADD_LIBS=$ADD_LIBS
 	 
 USER root
@@ -58,11 +58,15 @@ RUN cd /tmp && \
   curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
+RUN cd /tmp && \
+  curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
+  mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
+
 COPY docker-entrypoint.sh  /
 RUN chmod o+x /docker-entrypoint.sh 
 EXPOSE 18630
 
-#USER ${SDC_USER}
+USER ${SDC_USER}
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["dc", "-exec"]
 
