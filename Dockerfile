@@ -1,4 +1,4 @@
-FROM streamsets/datacollector:3.4.1
+FROM streamsets/datacollector:3.5.0
 MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
 
 ARG SDC_USER=sdc
