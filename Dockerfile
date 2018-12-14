@@ -1,5 +1,7 @@
 FROM streamsets/datacollector:3.5.0
-MAINTAINER Pavithra K C <Pavithra.KC@intlfcstone.com>
+MAINTAINER Rob Wetzeler <rob.wetzeler@gmail.com>
+# FORKED FROM Pavithra K C <Pavithra.KC@intlfcstone.com>
+# https://github.com/pavithrachandrakasu/streamsets-dockerfile
 
 ARG SDC_USER=sdc
 
@@ -37,7 +39,7 @@ RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib
 
 # Setup Mail alerts 
 RUN  sed -i  "/xmail.from.address=/c\xmail.from.address=streamsets_alert" /etc/sdc/sdc.properties \
-	&& sed -i -e 's/localhost/apps-outbound.fcstone.com/1' /etc/sdc/sdc.properties
+	&& sed -i -e 's/localhost/apps-outbound.emailserver.com/1' /etc/sdc/sdc.properties
 
 
 # Set permissions on shared libs folder
@@ -55,11 +57,11 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 # Download and extract jdbc driver
 
 RUN cd /tmp && \
-  curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/sqljdbc42.jar" && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/sqljdbc42.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 RUN cd /tmp && \
-  curl -O -L "https://raw.github.com/pavithrachandrakasu/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
   mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 COPY docker-entrypoint.sh  /
