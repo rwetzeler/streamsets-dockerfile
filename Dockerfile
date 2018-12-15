@@ -65,6 +65,9 @@ RUN cd /tmp && \
   curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
   mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
+#setup for data to new volume storage
+COPY sdc.properties /etc/sdc/sdc.properties
+
 COPY docker-entrypoint.sh  /
 RUN chmod o+x /docker-entrypoint.sh
 EXPOSE 18630
