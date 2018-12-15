@@ -27,10 +27,6 @@ RUN if [[ ! -z $ADD_LIBS ]]; then $SDC_DIST/bin/streamsets stagelibs -install=$A
 
 ENV SDC_DATA=/usr/share/streamsets/data
 ENV REMOTE_SHARE=/mnt/remoteshare
-ENV SHARED_CONFIG
-
-# Setup to share config path - likely to persistent storage
-RUN IF [[! -z $SHARED_CONFIG]]; then SDC_CONF=$SHARED_CONFIG
 
 #ENV SDC_VERSION ${SDC_VERSION:-2.4.1.0}
 #ENV SDC_DIST="/opt/streamsets-datacollector-${SDC_VERSION}"
