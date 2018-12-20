@@ -54,6 +54,8 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 	"/etc/hostname" \
 	"${SDC_DIST}"
 
+# sharedconfig
+RUN if [[ ! -z $COPY_CONFIG ]]; then cp ${COPY_CONFIG} /etc/sdc; fi
 
 # Download and extract jdbc driver
 
@@ -66,7 +68,6 @@ RUN cd /tmp && \
   mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 #setup for data to new volume storage
-COPY sdc.properties /etc/sdc/sdc.properties
 
 COPY docker-entrypoint.sh  /
 RUN chmod o+x /docker-entrypoint.sh
