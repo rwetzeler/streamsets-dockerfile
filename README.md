@@ -24,4 +24,8 @@ Detailed Usage
 *   Email alerts can be set by adding the configuration to EMAIL_HOST
 *   External JAR file for Microsoft SQL server installed along with this image. 
 *   Set SDC_DATA to create separate data containers. 
+*	Support for custom config copy via `COPY_CONFIG` Env Variable - if you specify a value, it will copy to the `SDC_CONF` path.
 
+
+Fork from [pavithrakc/streamsets-dockerfile
+](https://hub.docker.com/r/pavithrakc/streamsets-dockerfile)
