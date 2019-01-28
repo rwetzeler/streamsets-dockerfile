@@ -57,7 +57,7 @@ RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
 # sharedconfig
 RUN if [[ ! -z $COPY_CONFIG ]]; then cp ${COPY_CONFIG} /etc/sdc; fi
 
-# Download and extract jdbc driver
+# Download and extract jdbc drivers
 
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/sqljdbc42.jar" && \
@@ -66,6 +66,10 @@ RUN cd /tmp && \
 RUN cd /tmp && \
   curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
   mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
+
+  RUN cd /tmp && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/postgres-42.2.5.jre7.jar" && \
+  mv postgres-42.2.5.jre7.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 #setup for data to new volume storage
 
