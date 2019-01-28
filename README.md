@@ -6,7 +6,7 @@ This docker image starts from version 2.6.0.0. It has custom config for SDC_DATA
 
 Basic Usage
 -----------
-`docker run --restart on-failure -p 18630:18630 -d --name streamsets-dc streamsets/datacollector`
+`docker run --restart on-failure -p 18630:18630 -d --name streamsets-dc rwetzeler/streamsets-dc`
 
 Detailed Usage
 --------------
@@ -23,6 +23,8 @@ Detailed Usage
 	streamsets-datacollector-redis-lib
 *   Email alerts can be set by adding the configuration to EMAIL_HOST
 *   External JAR file for Microsoft SQL server installed along with this image. 
+*	External JAR file for PostgreSQL JDBC
+*	External JAR file for Dremio JDBC driver
 *   Set SDC_DATA to create separate data containers. 
 *	Support for custom config copy via `COPY_CONFIG` Env Variable - if you specify a value, it will copy to the `SDC_CONF` path.
 
