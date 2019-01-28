@@ -12,11 +12,11 @@ ENV ADD_LIBS=$ADD_LIBS
 USER root
 
 RUN apk --no-cache add bash \
-    curl \
-    krb5-libs \
-    libstdc++ \
-    sed \
-	cifs-utils
+  curl \
+  krb5-libs \
+  libstdc++ \
+  sed \
+  cifs-utils
 
 # Fix the stagelibs command to run on Alpine Linux
 RUN sed -i -e 's/run sha1sum --status/run sha1sum -s/g'  ${SDC_DIST}/libexec/_stagelibs
@@ -35,24 +35,24 @@ ENV REMOTE_SHARE=/mnt/remoteshare
 
 
 RUN mkdir -p ${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib \
-	&& mkdir -p ${SDC_DATA} \
-	&& mkdir -p ${REMOTE_SHARE}
+  && mkdir -p ${SDC_DATA} \
+  && mkdir -p ${REMOTE_SHARE}
 
 # Setup Mail alerts
 RUN  sed -i  "/xmail.from.address=/c\xmail.from.address=streamsets_alert" /etc/sdc/sdc.properties \
-	&& sed -i -e 's/localhost/apps-outbound.emailserver.com/1' /etc/sdc/sdc.properties
+  && sed -i -e 's/localhost/apps-outbound.emailserver.com/1' /etc/sdc/sdc.properties
 
 
 # Set permissions on shared libs folder
 
 RUN chown -R "${SDC_USER}:${SDC_USER}" "${STREAMSETS_LIBRARIES_EXTRA_DIR}" \
-"${SDC_CONF}" \
-    "${SDC_DATA}" \
-    "${SDC_LOG}" \
-	"${REMOTE_SHARE}" \
-    "${SDC_RESOURCES}" \
-	"/etc/hostname" \
-	"${SDC_DIST}"
+  "${SDC_CONF}" \
+  "${SDC_DATA}" \
+  "${SDC_LOG}" \
+  "${REMOTE_SHARE}" \
+  "${SDC_RESOURCES}" \
+  "/etc/hostname" \
+  "${SDC_DIST}"
 
 # sharedconfig
 RUN if [[ ! -z $COPY_CONFIG ]]; then cp ${COPY_CONFIG} /etc/sdc; fi
