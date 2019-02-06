@@ -60,15 +60,15 @@ RUN if [[ ! -z $COPY_CONFIG ]]; then cp ${COPY_CONFIG} /etc/sdc; fi
 # Download and extract jdbc drivers
 
 RUN cd /tmp && \
-  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/sqljdbc42.jar" && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/jdbc_drivers/mssql-jdbc-7.0.0.jre10.jar" && \
   mv sqljdbc42.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 RUN cd /tmp && \
-  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/dremio-jdbc-driver-2.0.5.jar" && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/jdbc_drivers/dremio-jdbc-driver-3.1.1.jar" && \
   mv dremio-jdbc-driver-2.0.5.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
   RUN cd /tmp && \
-  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/postgres-42.2.5.jre7.jar" && \
+  curl -O -L "https://raw.github.com/rwetzeler/streamsets-dockerfile/master/jdbc_drivers/postgres-42.2.5.jre7.jar" && \
   mv postgres-42.2.5.jre7.jar "${STREAMSETS_LIBRARIES_EXTRA_DIR}/streamsets-datacollector-jdbc-lib/lib"
 
 #setup for data to new volume storage
